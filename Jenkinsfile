@@ -33,8 +33,8 @@ pipeline {
                 script{
                     sh '''
                     echo 'Push to Repo'
-                    docker login 
-                    docker push siva2teja/jekins:${BUILD_NUMBER}
+                    docker.withRegistry('https://index.docker.io/v1/', 'docker') {
+                        sh "docker push siva2teja/jenkins:${BUILD_NUMBER}"
                     '''
                 }
             }
