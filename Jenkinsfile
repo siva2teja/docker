@@ -30,7 +30,7 @@ pipeline {
         stage('Push the artifacts') {
             steps {
                 script {
-                    docker.withRegistry('https://index.docker.io/v1/', 'dockerHubCredentials') {
+                    docker.withRegistry('https://index.docker.io/v1/', 'docker') {
                         sh "docker push siva2teja/jenkins:${BUILD_NUMBER}"
                     }
                 }
