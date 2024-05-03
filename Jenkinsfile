@@ -17,6 +17,27 @@ pipeline {
                sh 'mvn clean package'
             }
         }
+      stage('Build Docker'){
+            steps{
+                script{
+                    sh '''
+                    echo 'Buid Docker Image'
+                    docker build -t siva2teja/jekins:${BUILD_NUMBER} .
+                    '''
+                }
+            }
+        }
+
+        stage('Push the artifacts'){
+           steps{
+                script{
+                    sh '''
+                    echo 'Push to Repo'
+                    docker push siva2teja/jekins:${BUILD_NUMBER}
+                    '''
+                }
+            }
+        }
      
     }
 }
