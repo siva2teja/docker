@@ -33,7 +33,7 @@ pipeline {
                 script{
                     sh '''
                     echo 'Push to Repo'
-                    docker login -u siva2teja --password-stdin dckr_pat_bqdT-ndJx3HktTnaeQJipT5ifHM
+                    docker login 
                     docker push siva2teja/jekins:${BUILD_NUMBER}
                     '''
                 }
