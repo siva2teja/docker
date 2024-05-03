@@ -1,44 +1,36 @@
 pipeline {
-  
     agent any
     
-    tools{
-        maven "Maven-3.9.6"
-    }
-
     stages {
         stage('Clone') {
             steps {
-               git 'https://github.com/ashokitschool/maven-web-app.git'
+                git 'https://github.com/ashokitschool/maven-web-app.git'
             }
         }
         stage('Build') {
             steps {
-               sh 'mvn clean package'
+                sh 'mvn clean package'
             }
         }
-      stage('Build Docker'){
-            steps{
-                script{
+        stage('Build Docker') {
+            steps {
+                script {
                     sh '''
-                    echo 'Buid Docker Image'
-                    docker build -t siva2teja/jekins:${BUILD_NUMBER} .
+                    echo 'Build Docker Image'
+                    docker build -t siva2teja/jenkins:${BUILD_NUMBER} .
                     '''
                 }
             }
         }
 
-        stage('Push the artifacts'){
-           steps{
-                script{
-                    sh '''
-                    echo 'Push to Repo'
-                    docker.withRegistry('https://index.docker.io/v1/', 'docker') {
+        stage('Push the artifacts') {
+            steps {
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', 'dockerHubCredentials') {
                         sh "docker push siva2teja/jenkins:${BUILD_NUMBER}"
-                    '''
+                    }
                 }
             }
         }
-     
     }
 }
