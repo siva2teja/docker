@@ -6,11 +6,7 @@ pipeline {
     }
     
     stages {
-        stage('Clone') {
-            steps {
-                git 'https://github.com/ashokitschool/maven-web-app.git'
-            }
-        }
+    
         stage('Debugging') {
             steps {
                 sh 'ls -l'
