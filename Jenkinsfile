@@ -15,7 +15,7 @@ pipeline {
        stage('Install Nginx') {
             steps {
                 sh '''
-                /usr/bin/ansible-playbook -i docker/inventory docker/install_nginx.yaml
+                /usr/bin/ansible-playbook -i inventory install_nginx.yaml
                 '''
             }
         }
