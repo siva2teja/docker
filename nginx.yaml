@@ -1,6 +1,7 @@
 ---
 - name: Install Nginx
   hosts: localhost
+  connection: local
   become: yes
   tasks:
     - name: Update apt package index
