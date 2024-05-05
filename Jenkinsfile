@@ -12,12 +12,12 @@ pipeline {
             }
         }
         
-    }
-     stage('Install Nginx') {
+       stage('Install Nginx') {
             steps {
                 sh '''
                 ansible-playbook -i inventory install_nginx.yaml
                 '''
             }
         }
+    }
 }
