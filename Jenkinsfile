@@ -16,7 +16,7 @@ pipeline {
        stage('Install Nginx') {
             steps {
                 sh '''
-                /usr/bin/ansible-playbook localhost, nginx.yaml
+                /usr/bin/ansible-playbook -i localhost, nginx.yaml
                 '''
             }
         }
