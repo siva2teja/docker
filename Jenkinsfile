@@ -11,17 +11,29 @@ pipeline {
                 git 'https://github.com/ashokitschool/maven-web-app.git'
             }
         }
-        stage('Debugging') {
+        stage('Build') {
             steps {
-                sh 'ls -l'
+                sh 'mvn clean package'
             }
         }
-        
-       stage('Install Nginx') {
+        stage('Build Docker') {
             steps {
-                sh '''
-                /usr/bin/ansible-playbook -i inventory install_nginx.yaml
-                '''
+                script {
+                    sh '''
+                    echo 'Build Docker Image'
+                    docker build -t siva2teja/jenkins:${BUILD_NUMBER} .
+                    '''
+                }
+            }
+        }
+
+        stage('Push the artifacts') {
+            steps {
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', 'docker') {
+                        sh "docker push siva2teja/jenkins:${BUILD_NUMBER}"
+                    }
+                }
             }
         }
     }
